@@ -6,11 +6,6 @@ configuration:
   mongodb: # the mongodb connected by this webui
     name: free5gc # name of the mongodb
     url: mongodb://db:27017 # a valid URL of the mongodb
-  nrfUri: http://nrf.free5gc.org:8000 # a valid URI of NRF
-  webServer:
-    scheme: http
-    ipv4Address: 0.0.0.0
-    port: 5000
   billingServer:
     enable: true
     hostIPv4: webui
