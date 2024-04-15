@@ -214,6 +214,7 @@ services:
     volumes:
       - ./config/gnbcfg.yaml:/ueransim/config/gnbcfg.yaml
       - ./config/uecfg.yaml:/ueransim/config/uecfg.yaml
+      - ./config/random_traffic.sh:/ueransim/random_traffic.sh
     cap_add:
       - NET_ADMIN
     devices:
