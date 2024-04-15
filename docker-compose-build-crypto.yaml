@@ -7,7 +7,7 @@ services:
       context: ./nf_upf
       args:
         DEBUG_TOOLS: "false"
-    command: bash -c ./upf-iptables.sh && ./upf -c ./config/upfcfg.yaml
+    command: bash -c "./upf-iptables.sh && ./upf -c ./config/upfcfg.yaml"
     volumes:
       - ./config/upfcfg.yaml:/free5gc/config/upfcfg.yaml
       - ./config/upf-iptables.sh:/free5gc/upf-iptables.sh
@@ -197,6 +197,29 @@ services:
       - db
       - free5gc-nrf
 
+  free5gc-chf:
+    container_name: chf
+    build:
+      context: ./nf_chf
+      args:
+        DEBUG_TOOLS: "false"
+    command: ./chf -c ./config/chfcfg.yaml
+    expose:
+      - "8000"
+    volumes:
+      - ./config/chfcfg.yaml:/free5gc/config/chfcfg.yaml
+    environment:
+      DB_URI: mongodb://db/free5gc
+      GIN_MODE: release
+    networks:
+      privnet:
+        aliases:
+          - chf.free5gc.org
+    depends_on:
+      - db
+      - free5gc-nrf
+      - free5gc-webui
+
   free5gc-n3iwf:
     container_name: n3iwf
     build:
@@ -213,9 +236,10 @@ services:
       - NET_ADMIN
     networks:
       privnet:
+        ipv4_address: 10.100.200.15
         aliases:
           - n3iwf.free5gc.org
-    depends_on:
+    depends_on: 
       - free5gc-amf
       - free5gc-smf
       - free5gc-upf
@@ -227,6 +251,9 @@ services:
       args:
         DEBUG_TOOLS: "false"
     command: ./webui -c ./config/webuicfg.yaml
+    expose:
+      - "2121"
+      - "2122"
     volumes:
       - ./config/webuicfg.yaml:/free5gc/config/webuicfg.yaml
     environment:
@@ -239,6 +266,7 @@ services:
       - "5000:5000"
     depends_on:
       - db
+      - free5gc-nrf
 
   ueransim:
     container_name: ueransim
@@ -260,6 +288,24 @@ services:
     depends_on:
       - free5gc-amf
       - free5gc-upf
+
+n3iwue:
+    container_name: n3iwue
+    build:
+      context: ./n3iwue
+    command: sleep infinity
+    volumes:
+      - ./config/n3uecfg.yaml:/n3iwue/config/n3ue.yaml
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - "/dev/net/tun"  
+    networks:
+      privnet:
+        aliases:
+          - n3ue.free5gc.org
+    depends_on:
+      - free5gc-n3iwf
 
 networks:
   privnet:
