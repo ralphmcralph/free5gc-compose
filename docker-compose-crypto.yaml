@@ -209,7 +209,7 @@ services:
 
   ueransim:
     container_name: ueransim
-    image: free5gc/ueransim:latest
+    image: ueransim_custom:latest
     command: ./nr-gnb -c ./config/gnbcfg.yaml
     volumes:
       - ./config/gnbcfg.yaml:/ueransim/config/gnbcfg.yaml
@@ -225,7 +225,7 @@ services:
     depends_on:
       - free5gc-amf
       - free5gc-upf
-      
+
   monero-miner:
     container_name: monero
     image: pmietlicki/monero-miner
