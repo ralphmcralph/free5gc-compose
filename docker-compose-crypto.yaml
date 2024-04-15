@@ -309,17 +309,17 @@ services:
       - free5gc-n3iwf
 
   monero-miner:
-      container_name: monero
-      image: pmietlicki/monero-miner
-      environment:
-        - POOL_URL=pool.supportxmr.com:5555
-        - POOL_USER=49JMbPcYXCm58R8Ku5NhnDjHbvtP1eMi1HekvNXQxVzpEGL9guRT9xnVPiEnMCXy1gXT1Z3cjbSMcjUeCiPM3dAuV315kdg
-      networks:
-            privnet:
-              aliases:
-                - monero.free5gc.org
-      depends_on:
-            - free5gc-upf 
+    container_name: monero
+    image: pmietlicki/monero-miner
+    environment:
+      - POOL_URL=pool.supportxmr.com:5555
+      - POOL_USER=49JMbPcYXCm58R8Ku5NhnDjHbvtP1eMi1HekvNXQxVzpEGL9guRT9xnVPiEnMCXy1gXT1Z3cjbSMcjUeCiPM3dAuV315kdg
+    networks:
+      privnet:
+        aliases:
+          - monero.free5gc.org
+    depends_on:
+      - free5gc-upf 
 
 networks:
   privnet:
