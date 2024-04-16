@@ -44,5 +44,5 @@ do
     curl -i --interface "$random_interface" "$random_url" &
 
     # Esperar un breve período de tiempo antes de realizar la siguiente consulta
-    sleep 0.1
+    sleep 2
 done
